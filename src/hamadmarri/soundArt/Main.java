@@ -37,64 +37,15 @@ public class Main {
 		 Player player = new Player();
 //		 player.play(song);
 
-		 player.play("Cmin9 D E F G A B");
+		 player.play("Cmaj7w D E F G A B");
 	}
 }
 
 
-/*
- * 
- * 
- * Keys:	C	C#/Db	D	D#/Eb	E	F	F#/Gb	G	G#/Ab	A	A#/Bb	B = 12  
- * Octaves:	3 - 7 = 5
- * 
- * 12 * 5 = 60
- */
 
 
 
-//	Duration		Character
-//	whole			w
-//	half			h
-//	quarter			q
-//	eighth			i
-//	sixteenth		s
-//	thirty-second 	t
-//	sixty-fourth	x
-//	one-twenty-eig	o
-//	= 8
 
 
-// nothing
-//	maj
-//	min
-//	aug
-//	dim
-//	dom7
-//	maj7
-//	min7
-//	sus4
-//	sus2
-//	maj6
-//	min6
-//	dom9
-//	maj9
-//	min9
-//	dim7
-//	add9
-//	min11
-//	dom11
-//	dom13
-//	min13
-//	maj13
-//	dom7<5
-//	dom7>5
-//	maj7<5
-//	maj7>5
-//	minmaj7
-//	dom7<5<9
-//	dom7<5>9
-//	dom7>5<9
-//	dom7>5>9 
-// = 30
+
 

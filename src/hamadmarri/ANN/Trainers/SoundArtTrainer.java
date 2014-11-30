@@ -5,10 +5,12 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import hamadmarri.ANN.NeuralNetwork;
+import hamadmarri.soundArt.InputStructure;
 
 public class SoundArtTrainer extends Trainer {
 
 	private String inputFilePath;
+	private InputStructure is = new InputStructure();
 
 
 
@@ -37,7 +39,7 @@ public class SoundArtTrainer extends Trainer {
 		}
 
 		for (int i = 0; i < this.numberOfPasses; i++)
-			pw.println(a + " Chn\n" + b + " Dhn\n" + c + " Ehn");
+			pw.println(a + " Cmaj7w\n" + b + " Dmaj7w\n" + c + " Emaj7wn");
 
 		pw.close();
 	}
@@ -54,25 +56,28 @@ public class SoundArtTrainer extends Trainer {
 
 			input = this.inputFile.next();
 			output = this.inputFile.next();
+			is.setAll(output);
 
 			double inputArray[] = new double[10];
 			double outputArray[] = new double[4];
 
+			// intput text
 			for (int j = 0; j < input.length(); j++) {
 				byte b = input.substring(j, j + 1).getBytes()[0];
 				inputArray[j] = Double.parseDouble(Byte.toString(b))
 						/ (double) 255;
 			}
 
-			if (output.substring(0, 1).equals("C"))
-				outputArray[0] = (double) 36 / (double) 60;
-			else if (output.substring(0, 1).equals("D"))
-				outputArray[0] = (double) 37 / (double) 60;
-			else if (output.substring(0, 1).equals("E"))
-				outputArray[0] = (double) 38 / (double) 60;
+			// expected key
+			outputArray[0] = is.normalizeKey(is.getKey());
 
+			// expected chord
 			outputArray[1] = (double) 1 / (double) 8;
+
+			// third expected output
 			outputArray[2] = 0;
+
+			// extra node for ANN
 			outputArray[3] = 1;
 
 			this.neuralNetwork.setInputValues(inputArray);
