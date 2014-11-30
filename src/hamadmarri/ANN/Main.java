@@ -66,7 +66,7 @@ public class Main {
 		// NeuralNetwork nw = new NeuralNetwork(config, 0.72, 0.25);
 		// NeuralNetwork nw = (NeuralNetwork) deserialize(serPath);
 
-		Trainer trainer = new SoundArtTrainer(inputPath, outputPath, nw, 100000, true);
+		Trainer trainer = new SoundArtTrainer(inputPath, outputPath, nw, 100000, true, true);
 
 		train(trainer);
 

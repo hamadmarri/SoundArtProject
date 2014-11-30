@@ -3,6 +3,7 @@ package hamadmarri.ANN.Trainers;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
 
 import hamadmarri.ANN.NeuralNetwork;
 import hamadmarri.soundArt.InputStructure;
@@ -11,15 +12,18 @@ public class SoundArtTrainer extends Trainer {
 
 	private String inputFilePath;
 	private InputStructure is = new InputStructure();
+	private String trainingInput;
 
 
 
 	public SoundArtTrainer(String inputFileName, String outputFileName,
-			NeuralNetwork neuralNetwork, int numberOfPasses, boolean printOutput) {
+			NeuralNetwork neuralNetwork, int numberOfPasses,
+			boolean printOutput, boolean readFromInputfile) {
 
 		super(inputFileName, outputFileName, neuralNetwork, numberOfPasses,
-				printOutput);
+				printOutput, readFromInputfile);
 
+		this.trainingInput = inputFileName;
 		this.inputFilePath = inputFileName;
 	}
 
@@ -42,8 +46,7 @@ public class SoundArtTrainer extends Trainer {
 		}
 
 		for (int i = 0; i < this.numberOfPasses; i++)
-			pw.println(a + " C\n" + b + " D4w\n" + c + " A#7s\n" + d
-					+ " F#5q");
+			pw.println(a + " C\n" + b + " D4w\n" + c + " A#7s\n" + d + " F#5q");
 
 		pw.close();
 	}
@@ -55,9 +58,12 @@ public class SoundArtTrainer extends Trainer {
 		String input;
 		String expectedOutput;
 
+		inputFile = new Scanner(trainingInput);
+
 		for (int i = 0; i < this.numberOfPasses; i++) {
 			input = this.inputFile.next();
 			expectedOutput = this.inputFile.next();
+
 			is.setAll(expectedOutput);
 
 			double inputArray[] = new double[10];
@@ -93,6 +99,9 @@ public class SoundArtTrainer extends Trainer {
 				this.outputFile.println("\npass: " + (i + 1));
 				this.neuralNetwork.printResult(this.outputFile);
 			}
+
+			if (!inputFile.hasNext())
+				inputFile = new Scanner(trainingInput);
 		}
 
 		endTraining();

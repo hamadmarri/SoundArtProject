@@ -25,7 +25,7 @@ public class ANN_ForSoundTest {
 		nw = new NeuralNetwork(config, 0.79, 0.15);
 
 		Trainer trainer = new SoundArtTrainer(inputPath, outputPath, nw,
-				100000, false);
+				100000, false, true);
 
 		train(trainer);
 	}

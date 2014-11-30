@@ -15,6 +15,7 @@ public abstract class Trainer {
 	protected PrintWriter outputFile;
 	protected NeuralNetwork neuralNetwork;
 	protected int numberOfPasses = 2000;
+	protected boolean readFromInputfile = false;
 	protected boolean printOutput = false;
 
 
@@ -30,14 +31,18 @@ public abstract class Trainer {
 
 
 	public Trainer(String inputFileName, String outputFileName,
-			NeuralNetwork neuralNetwork, int numberOfPasses, boolean printOutput) {
+			NeuralNetwork neuralNetwork, int numberOfPasses, boolean printOutput, boolean readFromInputfile) {
 		this.neuralNetwork = neuralNetwork;
-		initializeInputFile(inputFileName);
+		
+		if (readFromInputfile)
+			initializeInputFile(inputFileName);
 
 		if (printOutput)
 			initializeOutputFile(outputFileName);
 
 		this.numberOfPasses = numberOfPasses;
+		
+		this.readFromInputfile = readFromInputfile;
 		this.printOutput = printOutput;
 	}
 
