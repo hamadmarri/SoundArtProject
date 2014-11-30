@@ -15,9 +15,11 @@ public class SoundArtTrainer extends Trainer {
 
 
 	public SoundArtTrainer(String inputFileName, String outputFileName,
-			NeuralNetwork neuralNetwork, int numberOfPasses) {
+			NeuralNetwork neuralNetwork, int numberOfPasses, boolean printOutput) {
 
-		super(inputFileName, outputFileName, neuralNetwork, numberOfPasses);
+		super(inputFileName, outputFileName, neuralNetwork, numberOfPasses,
+				printOutput);
+
 		this.inputFilePath = inputFileName;
 	}
 
@@ -28,6 +30,7 @@ public class SoundArtTrainer extends Trainer {
 		String a = "Hamad";
 		String b = "Salim";
 		String c = "Almarri";
+		String d = "perfect";
 		PrintWriter pw = null;
 
 		try {
@@ -39,7 +42,8 @@ public class SoundArtTrainer extends Trainer {
 		}
 
 		for (int i = 0; i < this.numberOfPasses; i++)
-			pw.println(a + " Cmaj7w\n" + b + " Dmaj7w\n" + c + " Emaj7wn");
+			pw.println(a + " C\n" + b + " D4w\n" + c + " A#7s\n" + d
+					+ " F#5q");
 
 		pw.close();
 	}
@@ -49,17 +53,15 @@ public class SoundArtTrainer extends Trainer {
 	@Override
 	public void train() {
 		String input;
-		String output;
+		String expectedOutput;
 
 		for (int i = 0; i < this.numberOfPasses; i++) {
-			this.outputFile.println("\npass: " + (i + 1));
-
 			input = this.inputFile.next();
-			output = this.inputFile.next();
-			is.setAll(output);
+			expectedOutput = this.inputFile.next();
+			is.setAll(expectedOutput);
 
 			double inputArray[] = new double[10];
-			double outputArray[] = new double[4];
+			double outputArray[] = new double[5];
 
 			// intput text
 			for (int j = 0; j < input.length(); j++) {
@@ -72,18 +74,25 @@ public class SoundArtTrainer extends Trainer {
 			outputArray[0] = is.normalizeKey(is.getKey());
 
 			// expected chord
-			outputArray[1] = (double) 1 / (double) 8;
+			outputArray[1] = is.normalizeChord(is.getChord());
 
-			// third expected output
-			outputArray[2] = 0;
+			// expected octave
+			outputArray[2] = is.normalizeOctave(is.getOctave());
+
+			// expected duration
+			outputArray[3] = is.normalizeDuration(is.getDuration());
 
 			// extra node for ANN
-			outputArray[3] = 1;
+			outputArray[4] = 1;
 
 			this.neuralNetwork.setInputValues(inputArray);
 			this.neuralNetwork.feedForward();
 			this.neuralNetwork.backPropagate(outputArray);
-			this.neuralNetwork.printResult(this.outputFile);
+
+			if (printOutput) {
+				this.outputFile.println("\npass: " + (i + 1));
+				this.neuralNetwork.printResult(this.outputFile);
+			}
 		}
 
 		endTraining();

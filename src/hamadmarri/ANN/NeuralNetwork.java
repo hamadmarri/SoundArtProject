@@ -68,7 +68,8 @@ public class NeuralNetwork implements Serializable {
 
 
 	public void backPropagate(double[] expectedValues) {
-		this.outputLayer.backPropagate(expectedValues, this.learningRate, this.momentum);
+		this.outputLayer.backPropagate(expectedValues, this.learningRate,
+				this.momentum);
 
 		// Calculate error for all neurons in the hidden layers
 		// (back propagate the errors
@@ -80,7 +81,8 @@ public class NeuralNetwork implements Serializable {
 
 
 	private void initializeOutputLayer(int[] config) {
-		this.outputLayer = new OutputLayer(config[config.length - 1], this.hiddenLayers[hiddenLayers.length - 1]);
+		this.outputLayer = new OutputLayer(config[config.length - 1],
+				this.hiddenLayers[hiddenLayers.length - 1]);
 	}
 
 
@@ -90,7 +92,8 @@ public class NeuralNetwork implements Serializable {
 		Layer prevLayer = this.inputLayer;
 
 		for (int i = 0; i < this.hiddenLayers.length; i++)
-			prevLayer = this.hiddenLayers[i] = new HiddenLayer(config[i + 1], prevLayer, config[i + 2]);
+			prevLayer = this.hiddenLayers[i] = new HiddenLayer(config[i + 1],
+					prevLayer, config[i + 2]);
 	}
 
 
@@ -117,4 +120,15 @@ public class NeuralNetwork implements Serializable {
 		return outputLayer;
 	}
 
+
+
+	public double[] getResults() {
+		double results[] = new double[this.outputLayer.getNeurons().length - 1];
+		Neuron neurons[] = this.outputLayer.getNeurons();
+
+		for (int i = 0; i < neurons.length - 1; i++)
+			results[i] = neurons[i].getOutput();
+
+		return results;
+	}
 }

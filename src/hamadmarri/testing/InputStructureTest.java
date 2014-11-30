@@ -21,7 +21,7 @@ public class InputStructureTest {
 
 
 	@Test
-	public void noChord() {
+	public void noChord1() {
 		String testInput = "C7w";
 		InputStructure is = new InputStructure(testInput);
 
@@ -29,6 +29,19 @@ public class InputStructureTest {
 		assertTrue(is.getChord(), is.getChord().equals("n"));
 		assertTrue(is.getOctave(), is.getOctave().equals("7"));
 		assertTrue(is.getDuration(), is.getDuration().equals("w"));
+	}
+
+
+
+	@Test
+	public void noChord2() {
+		String testInput = "F#5q";
+		InputStructure is = new InputStructure(testInput);
+
+		assertTrue(is.getKey(), is.getKey().equals("F#"));
+		assertTrue(is.getChord(), is.getChord().equals("n"));
+		assertTrue(is.getOctave(), is.getOctave().equals("5"));
+		assertTrue(is.getDuration(), is.getDuration().equals("q"));
 	}
 
 
@@ -159,8 +172,9 @@ public class InputStructureTest {
 
 		assertEquals(expected, is.normalizeKey(testInput), delta);
 	}
-	
-	
+
+
+
 	@Test
 	public void normalizeKeyB() {
 		String testInput = "B";
@@ -170,8 +184,9 @@ public class InputStructureTest {
 
 		assertEquals(expected, is.normalizeKey(testInput), delta);
 	}
-	
-	
+
+
+
 	@Test
 	public void normalizeChordSus2() {
 		String testInput = "sus2";
@@ -180,6 +195,138 @@ public class InputStructureTest {
 		InputStructure is = new InputStructure();
 
 		assertEquals(expected, is.normalizeChord(testInput), delta);
+	}
+
+
+
+	@Test
+	public void normalizeOctave4() {
+		String testInput = "4";
+		double delta = 1e-5d;
+		double expected = 1d / 4d;
+		InputStructure is = new InputStructure();
+
+		assertEquals(expected, is.normalizeOctave(testInput), delta);
+	}
+
+
+
+	@Test
+	public void normalizeDurationW() {
+		String testInput = "w";
+		double delta = 1e-5d;
+		double expected = 0d / 7d;
+		InputStructure is = new InputStructure();
+
+		assertEquals(expected, is.normalizeDuration(testInput), delta);
+	}
+
+
+
+	@Test
+	public void normalizeDurationH() {
+		String testInput = "h";
+		double delta = 1e-5d;
+		double expected = 1d / 7d;
+		InputStructure is = new InputStructure();
+
+		assertEquals(expected, is.normalizeDuration(testInput), delta);
+	}
+
+
+
+	@Test
+	public void denormalizeKeyCSharp() {
+		double testInput = 1d / 11d;
+		String expected = "C#";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeKey(testInput), is.denormalizeKey(testInput)
+				.equals(expected));
+	}
+
+
+
+	@Test
+	public void denormalizeKeyASharp() {
+		double testInput = 10d / 11d;
+		String expected = "A#";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeKey(testInput), is.denormalizeKey(testInput)
+				.equals(expected));
+	}
+
+
+
+	@Test
+	public void denormalizeKeyG() {
+		double testInput = 7d / 11d;
+		String expected = "G";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeKey(testInput), is.denormalizeKey(testInput)
+				.equals(expected));
+	}
+
+
+
+	@Test
+	public void denormalizeChord1() {
+		double testInput = 0.03323756378673251d;
+		String expected = "maj";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeChord(testInput),
+				is.denormalizeChord(testInput).equals(expected));
+	}
+
+
+
+	@Test
+	public void denormalizeChordDom7Greater5() {
+		double testInput = 23d / 30d;
+		String expected = "dom7>5";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeChord(testInput),
+				is.denormalizeChord(testInput).equals(expected));
+	}
+
+
+
+	@Test
+	public void denormalizeOctave6() {
+		double testInput = 3d / 4d;
+		String expected = "6";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeOctave(testInput), is
+				.denormalizeOctave(testInput).equals(expected));
+	}
+
+
+
+	@Test
+	public void denormalizeOctave5() {
+		double testInput = 2d / 4d;
+		String expected = "5";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeOctave(testInput), is
+				.denormalizeOctave(testInput).equals(expected));
+	}
+
+
+
+	@Test
+	public void denormalizeDurationS() {
+		double testInput = 4d / 7d;
+		String expected = "s";
+		InputStructure is = new InputStructure();
+
+		assertTrue(is.denormalizeDuration(testInput),
+				is.denormalizeDuration(testInput).equals(expected));
 	}
 
 }

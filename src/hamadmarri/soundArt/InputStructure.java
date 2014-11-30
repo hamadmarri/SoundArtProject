@@ -70,7 +70,7 @@ public final class InputStructure {
 		int endPivot = input.length();
 
 		// check for key
-		if (input.substring(1, 2).equals("#")) {
+		if (input.length() > 1 && input.substring(1, 2).equals("#")) {
 			this.key = input.substring(0, 2);
 			startPivot = 2;
 		} else {
@@ -185,6 +185,30 @@ public final class InputStructure {
 		}
 
 		return (double) d / (double) (maxNumber - 1);
+	}
+
+
+
+	public String denormalizeKey(double d) {
+		return KEYS[(int) Math.round(d * ((double) (NUMBER_OF_KEYS - 1)))];
+	}
+
+
+
+	public String denormalizeChord(double d) {
+		return CHORDS[(int) Math.round(d * ((double) (NUMBER_OF_CHORDS - 1)))];
+	}
+
+
+
+	public String denormalizeOctave(double d) {
+		return OCTAVES[(int) Math.round(d * ((double) (NUMBER_OF_OCTAVES - 1)))];
+	}
+
+
+
+	public String denormalizeDuration(double d) {
+		return DURATIONS[(int) Math.round(d * ((double) (NUMBER_OF_DURATIONS - 1)))];
 	}
 
 }

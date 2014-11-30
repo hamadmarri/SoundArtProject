@@ -62,11 +62,11 @@ public class Main {
 		String outputPath = "./output.txt";
 		String serPath = "./ANN_SOUND_ART.ser";
 		int[] config = new int[] { 10, 15, 4 };
-		NeuralNetwork nw = new NeuralNetwork(config, 0.02, 0.15);
+		NeuralNetwork nw = new NeuralNetwork(config, 0.09, 0.15);
 		// NeuralNetwork nw = new NeuralNetwork(config, 0.72, 0.25);
 		// NeuralNetwork nw = (NeuralNetwork) deserialize(serPath);
 
-		Trainer trainer = new SoundArtTrainer(inputPath, outputPath, nw, 10000);
+		Trainer trainer = new SoundArtTrainer(inputPath, outputPath, nw, 100000, true);
 
 		train(trainer);
 
@@ -79,7 +79,7 @@ public class Main {
 		long startTime;
 		long endTime;
 
-		// trainer.generateTest();
+		trainer.generateTest();
 		startTime = System.currentTimeMillis();
 		trainer.train();
 		endTime = System.currentTimeMillis();
