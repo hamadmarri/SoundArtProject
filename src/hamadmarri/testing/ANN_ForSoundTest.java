@@ -21,8 +21,8 @@ public class ANN_ForSoundTest {
 		String inputPath = "./input.txt";
 		String outputPath = "./output.txt";
 
-		int[] config = new int[] { 10, 7, 4 };
-		nw = new NeuralNetwork(config, 0.79, 0.15);
+		int[] config = new int[] { 10, 30, 4 };
+		nw = new NeuralNetwork(config, 0.10, 0.9);
 
 		Trainer trainer = new SoundArtTrainer(inputPath, outputPath, nw,
 				100000, false, true);
@@ -33,21 +33,18 @@ public class ANN_ForSoundTest {
 
 
 	private static void train(Trainer trainer) {
-		long startTime;
-		long endTime;
 
 		trainer.generateTest();
-		startTime = System.currentTimeMillis();
 		trainer.train();
-		endTime = System.currentTimeMillis();
-		System.out.println("took: " + (endTime - startTime) + "ms");
+		//endTime = System.currentTimeMillis();
+		//System.out.println("took: " + (endTime - startTime) + "ms");
 	}
 
 
 
 	@Test
-	public void HamadTest() {
-		String input = "Hamad";
+	public void SheTest() {
+		String input = "She";
 		double inputArray[] = new double[10];
 		double r[];
 
@@ -60,25 +57,25 @@ public class ANN_ForSoundTest {
 		nw.setInputValues(inputArray);
 		nw.feedForward();
 		r = nw.getResults();
-
+		
 		assertTrue(is.denormalizeKey(r[0]) + " " + r[0], is
-				.denormalizeKey(r[0]).equals("C"));
+				.denormalizeKey(r[0]).equals("A"));
 
 		assertTrue(is.denormalizeChord(r[1]) + " " + r[1],
 				is.denormalizeChord(r[1]).equals("n"));
 
 		assertTrue(is.denormalizeOctave(r[2]) + " " + r[2], is
-				.denormalizeOctave(r[2]).equals("3"));
+				.denormalizeOctave(r[2]).equals("5"));
 
 		assertTrue(is.denormalizeDuration(r[3]) + " " + r[3], is
-				.denormalizeDuration(r[3]).equals("q"));
+				.denormalizeDuration(r[3]).equals("s"));
 	}
 
 
 
 	@Test
-	public void SalimTest() {
-		String input = "Salim";
+	public void yourTest() {
+		String input = "your";
 		double inputArray[] = new double[10];
 		double r[];
 
@@ -93,21 +90,21 @@ public class ANN_ForSoundTest {
 		r = nw.getResults();
 
 		assertTrue(is.denormalizeKey(r[0]) + " " + r[0], is
-				.denormalizeKey(r[0]).equals("D"));
+				.denormalizeKey(r[0]).equals("B"));
 		
 		assertTrue(is.denormalizeChord(r[1]) + " " + r[1],
 				is.denormalizeChord(r[1]).equals("n"));
 
 		assertTrue(is.denormalizeOctave(r[2]) + " " + r[2], is
-				.denormalizeOctave(r[2]).equals("4"));
+				.denormalizeOctave(r[2]).equals("5"));
 
 		assertTrue(is.denormalizeDuration(r[3]) + " " + r[3], is
-				.denormalizeDuration(r[3]).equals("w"));
+				.denormalizeDuration(r[3]).equals("s"));
 	}
 
 
 
-	@Test
+//	@Test
 	public void AlmarriTest() {
 		String input = "Almarri";
 		double inputArray[] = new double[10];
@@ -138,7 +135,7 @@ public class ANN_ForSoundTest {
 
 
 
-	@Test
+//	@Test
 	public void perfectTest() {
 		String input = "perfect";
 		double inputArray[] = new double[10];

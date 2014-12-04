@@ -46,8 +46,9 @@ public class SoundArtTrainer extends Trainer {
 		}
 
 		for (int i = 0; i < this.numberOfPasses; i++)
-			pw.println(a + " C\n" + b + " D4w\n" + c + " A#7s\n" + d + " F#5q");
-
+			pw.println("She A5s\nyour B5s\ngot C5q\nme D5q\nhymns E5s\nher F5s\nlips G#5q");
+// She A5s\nyour B5s\ngot C5q\nme D5q\nhymns E5s\nher F5s\nlips G#5q
+		// a + " C\n" + b + " D4w\n" + c + " A#7s\n" + d + " F#5q"
 		pw.close();
 	}
 
@@ -58,7 +59,8 @@ public class SoundArtTrainer extends Trainer {
 		String input;
 		String expectedOutput;
 
-		inputFile = new Scanner(trainingInput);
+		if (!readFromInputfile)
+			inputFile = new Scanner(trainingInput);
 
 		for (int i = 0; i < this.numberOfPasses; i++) {
 			input = this.inputFile.next();
@@ -100,7 +102,7 @@ public class SoundArtTrainer extends Trainer {
 				this.neuralNetwork.printResult(this.outputFile);
 			}
 
-			if (!inputFile.hasNext())
+			if (!inputFile.hasNext() && !readFromInputfile)
 				inputFile = new Scanner(trainingInput);
 		}
 
